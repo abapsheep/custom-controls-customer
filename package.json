@@ -1,0 +1,10 @@
+{
+  "name": "customer-frontend-extension",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Template for customer-owned frontend artefacts served to abap2UI5",
+  "type": "module",
+  "scripts": {
+    "app2bsp": "node tools/app2bsp.mjs"
+  }
+}

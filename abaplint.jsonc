@@ -1,0 +1,59 @@
+{
+  "global": {
+    "files": "/src/**/*.*"
+  },
+  "dependencies": [
+    {
+      // the abap2UI5 framework this extension plugs into - cloned by abaplint
+      // for dependency resolution (z2ui5_if_app, z2ui5_if_client,
+      // z2ui5_cl_ai_xml)
+      "url": "https://github.com/abap2UI5/abap2UI5",
+      "files": "/src/**/*.*"
+    },
+    {
+      // SAP standard objects abaplint cannot know by itself - here
+      // if_serializable_object, which every custom filter/mapper handed to
+      // client->_bind( ) has to implement. Same dependency the abap2UI5
+      // samples and custom-controls repositories use.
+      "url": "https://github.com/abapedia/steampunk-2305-api-intersect-702",
+      "folder": "/deps",
+      "files": "/src/**/*.*"
+    }
+  ],
+  "syntax": {
+    "version": "v750",
+    "errorNamespace": "^(Z|Y)"
+  },
+  "rules": {
+    "begin_end_names": true,
+    "check_ddic": true,
+    "check_include": true,
+    "check_subrc": true,
+    "check_syntax": true,
+    "global_class": true,
+    "implement_methods": true,
+    "method_implemented_twice": true,
+    "parser_error": true,
+    "superclass_final": true,
+    "unknown_types": true,
+    "allowed_object_types": {
+      // WAPA is the BSP application Z2UI5EXT that carries this repository's
+      // frontend artefacts, SICF are the ICF nodes it is served from (both
+      // generated from app/webapp by 'npm run app2bsp')
+      "allowed": ["CLAS", "DEVC", "INTF", "WAPA", "SICF"]
+    },
+    "obsolete_statement": true,
+    "definitions_top": false,
+    "7bit_ascii": true,
+    "line_length": {
+      "length": 255
+    },
+    "object_naming": {
+      "patternKind": "required",
+      // Z2UI5_CL_EXT* by default - change both patterns together with the
+      // class names when you move this repository into your own namespace
+      "clas": "^Z2UI5_CL_|^Z2UI5_CX_",
+      "intf": "^Z2UI5_IF_"
+    }
+  }
+}
