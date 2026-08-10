@@ -1,15 +1,15 @@
 "! <p class="shorttext synchronized" lang="en">abap2UI5 customer frontend extension - check</p>
 "!
-"! Start with: <em>?app_start=z2ui5_cl_ext_sample_00</em>
+"! Start with: <em>?app_start=z2ui5_cl_ccc_sample_00</em>
 "!
 "! Installation check of this repository. If the badge renders, is styled and
-"! reacts to a click, then the Z2UI5EXT BSP is deployed, the abap2UI5 frontend
-"! resolves the reserved resourceRoot <em>z2ui5ext</em>, and both the control
+"! reacts to a click, then the Z2UI5CCI BSP is deployed, the abap2UI5 frontend
+"! resolves the reserved resourceRoot <em>z2ui5cci</em>, and both the control
 "! and the stylesheet are being served from here. Nothing in abap2UI5 or in its
 "! frontend BSP was touched to make that work.
 "!
 "! Keep it as a smoke test after every deployment of this repository.
-CLASS z2ui5_cl_ext_sample_00 DEFINITION
+CLASS z2ui5_cl_ccc_sample_00 DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -31,7 +31,7 @@ CLASS z2ui5_cl_ext_sample_00 DEFINITION
 ENDCLASS.
 
 
-CLASS z2ui5_cl_ext_sample_00 IMPLEMENTATION.
+CLASS z2ui5_cl_ccc_sample_00 IMPLEMENTATION.
 
   METHOD z2ui5_if_app~main.
 
@@ -61,8 +61,8 @@ CLASS z2ui5_cl_ext_sample_00 IMPLEMENTATION.
         )->a( n = `height`
               v = `100%` ).
 
-    " declares xmlns:z2ui5ext="z2ui5ext.cc" - once per view, on the root
-    z2ui5_cl_ext=>xmlns( root ).
+    " declares xmlns:z2ui5cci="z2ui5cci.cc" - once per view, on the root
+    z2ui5_cl_ccc=>xmlns( root ).
 
     DATA(page) = root->open( `Page`
         )->a( n = `title`
@@ -70,7 +70,7 @@ CLASS z2ui5_cl_ext_sample_00 IMPLEMENTATION.
 
     page->open( `MessageStrip`
         )->a( n = `text`
-              v = `Everything below is served by the Z2UI5EXT BSP of this ` &&
+              v = `Everything below is served by the Z2UI5CCI BSP of this ` &&
                   `repository, not by abap2UI5 or its frontend BSP.`
         )->a( n = `type`
               v = `Information`
@@ -83,7 +83,7 @@ CLASS z2ui5_cl_ext_sample_00 IMPLEMENTATION.
     " The bootstrap element: registers the resource roots, libraries, icon
     " fonts and stylesheets declared in app/webapp/cc/Extension.js. Add it
     " before the controls that depend on any of them.
-    z2ui5_cl_ext=>render( page ).
+    z2ui5_cl_ccc=>render( page ).
 
     DATA(box) = page->open( `VBox`
         )->a( n = `class`
@@ -108,8 +108,8 @@ CLASS z2ui5_cl_ext_sample_00 IMPLEMENTATION.
         )->a( n = `width`
               v = `20rem` ).
 
-    " the control this repository ships - z2ui5ext/cc/Example.js
-    z2ui5_cl_ext=>example( view  = box
+    " the control this repository ships - z2ui5cci/cc/Example.js
+    z2ui5_cl_ccc=>example( view  = box
                            text  = client->_bind( text )
                            color = client->_bind( color )
                            press = client->_event( `PRESS` ) ).

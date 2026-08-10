@@ -1,4 +1,4 @@
-// z2ui5ext.Util - the few helpers the artefacts in this BSP need.
+// z2ui5cci.Util - the few helpers the artefacts in this BSP need.
 //
 // Deliberately NOT a dependency on z2ui5/core/Lib: that module is
 // frontend-internal and not part of abap2UI5's public contract, so artefacts
@@ -19,10 +19,10 @@ sap.ui.define([], () => {
   const isDestroyed = (obj) => Boolean(obj?.isDestroyed && obj.isDestroyed());
 
   // Absolute URL of a file inside THIS BSP. Never hardcode
-  // "/sap/bc/ui5_ui5/sap/z2ui5ext/..." - the abap2UI5 frontend registers the
-  // z2ui5ext resource root for its delivery mode (sibling BSP, launchpad or
+  // "/sap/bc/ui5_ui5/sap/z2ui5cci/..." - the abap2UI5 frontend registers the
+  // z2ui5cci resource root for its delivery mode (sibling BSP, launchpad or
   // standalone ICF service), and only the loader knows which one applied.
-  const url = (path) => sap.ui.require.toUrl(`z2ui5ext/${path}`);
+  const url = (path) => sap.ui.require.toUrl(`z2ui5cci/${path}`);
 
   // Adds a <link rel="stylesheet"> once and resolves when it is applied.
   function loadStyle(href) {

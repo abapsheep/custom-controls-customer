@@ -34,28 +34,28 @@ never collide.
 
 ## How it works
 
-abap2UI5 reserves the resourceRoot **`z2ui5ext`** in its `manifest.json`:
+abap2UI5 reserves the resourceRoot **`z2ui5cci`** in its `manifest.json`:
 
 ```json
-"sap.ui5": { "resourceRoots": { "z2ui5cc": "../z2ui5cc/", "z2ui5ext": "../z2ui5ext/" } }
+"sap.ui5": { "resourceRoots": { "z2ui5ccc": "../z2ui5ccc/", "z2ui5cci": "../z2ui5cci/" } }
 ```
 
-so the module `z2ui5ext/cc/Example` is served from
-`/sap/bc/ui5_ui5/sap/z2ui5ext/cc/Example.js` — the BSP `Z2UI5EXT` that this
+so the module `z2ui5cci/cc/Example` is served from
+`/sap/bc/ui5_ui5/sap/z2ui5cci/cc/Example.js` — the BSP `Z2UI5CCI` that this
 repository builds. In the standalone HTTP service, where there is no sibling
-BSP to resolve `../z2ui5ext/` against, `z2ui5_cl_http_handler` hands the
+BSP to resolve `../z2ui5cci/` against, `z2ui5_cl_http_handler` hands the
 absolute path to the frontend instead. All three delivery modes (BSP,
 launchpad, ICF service) therefore resolve it without configuration.
 
 Registering the path costs nothing when this repository is not installed:
-the browser requests nothing from `z2ui5ext` until a view actually names the
+the browser requests nothing from `z2ui5cci` until a view actually names the
 namespace.
 
 ```
-your ABAP app  ──►  z2ui5_cl_ext=>render( page )
-                          │  emits <z2ui5ext:Extension/> into the view
+your ABAP app  ──►  z2ui5_cl_ccc=>render( page )
+                          │  emits <z2ui5cci:Extension/> into the view
                           ▼
-abap2UI5 frontend  ──►  loads z2ui5ext/cc/Extension.js from YOUR BSP
+abap2UI5 frontend  ──►  loads z2ui5cci/cc/Extension.js from YOUR BSP
                           │  which registers, at page level:
                           ├─ resource roots of other BSPs
                           ├─ UI5 reuse libraries
@@ -66,14 +66,14 @@ abap2UI5 frontend  ──►  loads z2ui5ext/cc/Extension.js from YOUR BSP
 ## Install
 
 1. Install this repository with abapGit. It brings the ABAP classes, the BSP
-   application `Z2UI5EXT` and the two ICF nodes it is served from.
-2. Start **`?app_start=z2ui5_cl_ext_sample_00`** — the check app. If the badge
+   application `Z2UI5CCI` and the two ICF nodes it is served from.
+2. Start **`?app_start=z2ui5_cl_ccc_sample_00`** — the check app. If the badge
    renders, is styled and reacts to a click, the BSP is deployed and the
-   frontend resolves `z2ui5ext`.
+   frontend resolves `z2ui5cci`.
 
-Requires an abap2UI5 version that reserves the `z2ui5ext` resourceRoot. On an
+Requires an abap2UI5 version that reserves the `z2ui5cci` resourceRoot. On an
 older framework the check app renders an empty page and the browser console
-shows a failed request for `z2ui5ext/cc/Extension.js`.
+shows a failed request for `z2ui5cci/cc/Extension.js`.
 
 ## Putting your artefacts in
 
@@ -141,11 +141,11 @@ DATA(root) = view->open( n  = `View`
     )->a( n = `xmlns`     v = `sap.m`
     )->a( n = `xmlns:mvc` v = `sap.ui.core.mvc` ).
 
-z2ui5_cl_ext=>xmlns( root ).             " declares xmlns:z2ui5ext - once per view
+z2ui5_cl_ccc=>xmlns( root ).             " declares xmlns:z2ui5cci - once per view
 
 DATA(page) = root->open( `Page` )->a( n = `title` v = `Warehouse` ).
 
-z2ui5_cl_ext=>render( page ).            " loads and installs the extension
+z2ui5_cl_ccc=>render( page ).            " loads and installs the extension
 
 page->leaf( `Button`
     )->a( n = `icon` v = `sap-icon://my-icons/Regal`   " your own icon font
@@ -200,14 +200,35 @@ ways work:
   the URL it is served from. This is the right choice for anything large or
   for a font the IconPool has to read.
 
+## Naming
+
+ABAP objects here follow the scheme `z2ui5_<type>_<token>_<object>` the
+abap2UI5 repositories share, with the token **`ccc`** — *custom control
+customers* — reserved for this one, the way `smp` belongs to
+[abap2UI5/samples](https://github.com/abap2UI5/samples) and `cc` to the
+community add-on. So every class starts with `Z2UI5_CL_CCC` (`Z2UI5_CX_CCC`
+for exceptions, `Z2UI5_IF_CCC` for interfaces) and is at most 25 characters
+long — `object_naming` in `abaplint.jsonc` enforces both, and the comment
+there explains where the 25 comes from.
+
+The frontend side carries the same idea one level up: the BSP is `Z2UI5CCI`
+and the resourceRoot it is served under is **`z2ui5cci`** — *custom control
+customer individual* — next to the community `z2ui5ccc`, so the two roots can
+never collide. That name is reserved in the abap2UI5 `manifest.json`, which
+is what makes this BSP findable without patching anything downstream.
+
+The two are deliberately not the same string: `ccc` names ABAP objects, where
+`z2ui5cci` is not a legal prefix, and `z2ui5cci` names a UI5 module namespace,
+where the underscores of an ABAP name have no place.
+
 ## Renaming
 
-`Z2UI5EXT` and the `Z2UI5_CL_EXT*` classes are the defaults. To use your own
+`Z2UI5CCI` and the `Z2UI5_CL_CCC*` classes are the defaults. To use your own
 namespace, change `BSP` and `PREFIX` in `tools/app2bsp.mjs`, the
 `resourceRoots` key the frontend registers, the class names, and the
 `object_naming` patterns in `abaplint.jsonc` — all together.
 
-Be aware that `z2ui5ext` is the namespace abap2UI5 registers out of the box.
+Be aware that `z2ui5cci` is the namespace abap2UI5 registers out of the box.
 Renaming it means registering the new one yourself, which puts you back in the
 business of patching framework files — so rename the ABAP objects if your
 system demands it, but keep the resourceRoot.
@@ -219,8 +240,8 @@ system demands it, but keep the resourceRoot.
 | `app/webapp/cc/Extension.js` | the bootstrap element — resource roots, libraries, icon fonts, stylesheets |
 | `app/webapp/cc/Example.js` | a template custom control (property, event, renderer) |
 | `app/webapp/Util.js` | `url`, `loadStyle`, `loadScript`, `logError`, `isDestroyed` |
-| `src/z2ui5_cl_ext.clas.abap` | ABAP side — `xmlns( )`, `render( )`, `example( )`, `leaf( )` |
-| `src/00/z2ui5_cl_ext_sample_00.clas.abap` | installation check app |
+| `src/z2ui5_cl_ccc.clas.abap` | ABAP side — `xmlns( )`, `render( )`, `example( )`, `leaf( )` |
+| `src/00/z2ui5_cl_ccc_sample_00.clas.abap` | installation check app |
 | `tools/app2bsp.mjs` | `app/webapp` → the abapGit BSP artefacts under `src/01` |
 
 ## Dependencies
@@ -233,6 +254,6 @@ system demands it, but keep the resourceRoot.
 ## Related
 
 * [abap2UI5-addons/custom-controls](https://github.com/abap2UI5-addons/custom-controls)
-  — the same mechanism under the reserved namespace `z2ui5cc`, for controls
+  — the same mechanism under the reserved namespace `z2ui5ccc`, for controls
   shared with the community. If what you are building is generally useful,
   contribute it there instead.
