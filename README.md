@@ -37,7 +37,7 @@ never collide.
 abap2UI5 reserves the resourceRoot **`z2ui5cci`** in its `manifest.json`:
 
 ```json
-"sap.ui5": { "resourceRoots": { "z2ui5cc": "../z2ui5cc/", "z2ui5cci": "../z2ui5cci/" } }
+"sap.ui5": { "resourceRoots": { "z2ui5ccc": "../z2ui5ccc/", "z2ui5cci": "../z2ui5cci/" } }
 ```
 
 so the module `z2ui5cci/cc/Example` is served from
@@ -213,7 +213,7 @@ there explains where the 25 comes from.
 
 The frontend side carries the same idea one level up: the BSP is `Z2UI5CCI`
 and the resourceRoot it is served under is **`z2ui5cci`** — *custom control
-customer individual* — next to the community `z2ui5cc`, so the two roots can
+customer individual* — next to the community `z2ui5ccc`, so the two roots can
 never collide. That name is reserved in the abap2UI5 `manifest.json`, which
 is what makes this BSP findable without patching anything downstream.
 
@@ -254,6 +254,6 @@ system demands it, but keep the resourceRoot.
 ## Related
 
 * [abap2UI5-addons/custom-controls](https://github.com/abap2UI5-addons/custom-controls)
-  — the same mechanism under the reserved namespace `z2ui5cc`, for controls
+  — the same mechanism under the reserved namespace `z2ui5ccc`, for controls
   shared with the community. If what you are building is generally useful,
   contribute it there instead.
