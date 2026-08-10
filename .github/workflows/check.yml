@@ -3,7 +3,7 @@
 #
 # The abap2UI5-linter's headless view render is deliberately not run here: it
 # validates views against the UI5 metadata snapshot, which does not know
-# z2ui5ext.cc.Example - a control shipped from its own BSP is invisible to it
+# z2ui5cci.cc.Example - a control shipped from its own BSP is invisible to it
 # by definition.
 name: check
 

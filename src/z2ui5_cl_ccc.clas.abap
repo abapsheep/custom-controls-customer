@@ -3,14 +3,14 @@
 "! ABAP side of this repository's BSP: the XML namespace its elements are
 "! emitted under, and the helpers that declare it on a view.
 "!
-"! The prefix resolves to the UI5 module namespace <em>z2ui5ext.cc</em>. Its
+"! The prefix resolves to the UI5 module namespace <em>z2ui5cci.cc</em>. Its
 "! first segment is the resourceRoot the abap2UI5 frontend reserves in its
 "! manifest.json, which is what makes this repository's BSP findable:
 "!
-"!   "sap.ui5": \{ "resourceRoots": \{ "z2ui5ext": "../z2ui5ext/" \} \}
+"!   "sap.ui5": \{ "resourceRoots": \{ "z2ui5cci": "../z2ui5cci/" \} \}
 "!
-"! so <em>z2ui5ext/cc/Example</em> is served from
-"! <em>/sap/bc/ui5_ui5/sap/z2ui5ext/cc/Example.js</em>. In the standalone HTTP
+"! so <em>z2ui5cci/cc/Example</em> is served from
+"! <em>/sap/bc/ui5_ui5/sap/z2ui5cci/cc/Example.js</em>. In the standalone HTTP
 "! service, where there is no sibling BSP, the abap2UI5 HTTP handler hands the
 "! absolute path to the frontend instead - either way nothing in abap2UI5 or in
 "! its frontend BSP has to be patched for this repository to be reachable.
@@ -22,9 +22,9 @@ CLASS z2ui5_cl_ccc DEFINITION
   PUBLIC SECTION.
 
     "! XML namespace prefix used for this extension's elements
-    CONSTANTS c_ns TYPE string VALUE `z2ui5ext`.
+    CONSTANTS c_ns TYPE string VALUE `z2ui5cci`.
     "! UI5 module namespace the prefix resolves to
-    CONSTANTS c_ns_uri TYPE string VALUE `z2ui5ext.cc`.
+    CONSTANTS c_ns_uri TYPE string VALUE `z2ui5cci.cc`.
 
     "! Declare the extension's XML namespace on a view or fragment root.
     "!
@@ -48,7 +48,7 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! Render the bootstrap element of this extension.
     "!
     "! Renders nothing visible. It is what makes the browser load
-    "! <em>z2ui5ext/cc/Extension.js</em>, which registers the resource roots,
+    "! <em>z2ui5cci/cc/Extension.js</em>, which registers the resource roots,
     "! UI5 libraries, icon fonts and stylesheets declared there - so add it to
     "! every view that relies on any of them, before the controls that use
     "! them. Adding it twice is harmless; the installation runs once per page.
