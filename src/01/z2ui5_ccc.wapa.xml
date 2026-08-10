@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <ATTRIBUTES>
-    <APPLNAME>Z2UI5CCI</APPLNAME>
+    <APPLNAME>Z2UI5_CCC</APPLNAME>
     <APPLCLAS>/UI5/CL_UI5_BSP_APPLICATION</APPLCLAS>
-    <APPLEXT>Z2UI5CCI</APPLEXT>
+    <APPLEXT>Z2UI5_CCC</APPLEXT>
     <SECURITY>X</SECURITY>
     <ORIGLANG>E</ORIGLANG>
     <MODIFLANG>E</MODIFLANG>
@@ -14,7 +14,7 @@
    <PAGES>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>CC/EXAMPLE.JS</PAGEKEY>
       <PAGENAME>cc/Example.js</PAGENAME>
       <PAGETYPE>X</PAGETYPE>
@@ -25,7 +25,7 @@
     </item>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>CC/EXTENSION.JS</PAGEKEY>
       <PAGENAME>cc/Extension.js</PAGENAME>
       <PAGETYPE>X</PAGETYPE>
@@ -36,7 +36,7 @@
     </item>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>CSS/STYLE.CSS</PAGEKEY>
       <PAGENAME>css/style.css</PAGENAME>
       <PAGETYPE>X</PAGETYPE>
@@ -47,7 +47,7 @@
     </item>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>INDEX.HTML</PAGEKEY>
       <PAGENAME>index.html</PAGENAME>
       <MIMETYPE>text/html</MIMETYPE>
@@ -59,7 +59,7 @@
     </item>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>UI5REPOSITORYPATHMAPPING.XML</PAGEKEY>
       <PAGENAME>UI5RepositoryPathMapping.xml</PAGENAME>
       <PAGETYPE>X</PAGETYPE>
@@ -70,7 +70,7 @@
     </item>
     <item>
      <ATTRIBUTES>
-      <APPLNAME>Z2UI5CCI</APPLNAME>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>UTIL.JS</PAGEKEY>
       <PAGENAME>Util.js</PAGENAME>
       <PAGETYPE>X</PAGETYPE>

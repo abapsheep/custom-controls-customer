@@ -1,4 +1,4 @@
-// z2ui5cci.cc.Extension - the bootstrap element of this extension BSP.
+// z2ui5_ccc.cc.Extension - the bootstrap element of this extension BSP.
 //
 // THIS IS THE FILE YOU EDIT. Everything that has to happen once, before a
 // view can use your artefacts, is declared in the four config blocks below:
@@ -18,7 +18,7 @@
 // sap.m.Button with icon="sap-icon://my-icons/Regal" would then look up a
 // collection that is not registered yet and render a blank icon.
 sap.ui.define(
-  ["sap/ui/core/Control", "sap/ui/core/IconPool", "z2ui5cci/Util"],
+  ["sap/ui/core/Control", "sap/ui/core/IconPool", "z2ui5_ccc/Util"],
   (Control, IconPool, Util) => {
     "use strict";
 
@@ -34,7 +34,7 @@ sap.ui.define(
     // every framework update, this one is yours.
     //
     // Artefacts that live in THIS BSP need no entry: abap2UI5 registers
-    // z2ui5cci itself.
+    // z2ui5_ccc itself.
     const RESOURCE_ROOTS = {
       // "com.myorg.reuselib": "/sap/bc/ui5_ui5/sap/zreuseicons/",
     };
@@ -152,7 +152,7 @@ sap.ui.define(
       );
     }
 
-    return Control.extend("z2ui5cci.cc.Extension", {
+    return Control.extend("z2ui5_ccc.cc.Extension", {
       metadata: {},
 
       // init must not return a value - UI5 2.x rejects a Promise here
