@@ -6,7 +6,7 @@
 //
 // An abap2UI5 app pulls it into a view with one line of ABAP:
 //
-//     z2ui5_cl_ext=>render( page ).
+//     z2ui5_cl_ccc=>render( page ).
 //
 // It renders nothing (a hidden span) - it installs things. That is also why
 // it is a control and not a plain module: a control can be named in the view

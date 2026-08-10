@@ -14,7 +14,7 @@
 "! service, where there is no sibling BSP, the abap2UI5 HTTP handler hands the
 "! absolute path to the frontend instead - either way nothing in abap2UI5 or in
 "! its frontend BSP has to be patched for this repository to be reachable.
-CLASS z2ui5_cl_ext DEFINITION
+CLASS z2ui5_cl_ccc DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -35,7 +35,7 @@ CLASS z2ui5_cl_ext DEFINITION
     "!   DATA(root) = view->open( n = `View` ns = `mvc`
     "!       )->a( n = `xmlns`     v = `sap.m`
     "!       )->a( n = `xmlns:mvc` v = `sap.ui.core.mvc` ).
-    "!   z2ui5_cl_ext=>xmlns( root ).
+    "!   z2ui5_cl_ccc=>xmlns( root ).
     "!
     "! @parameter view   | the builder positioned at the root element
     "! @parameter result | the unchanged view builder, for chaining
@@ -106,7 +106,7 @@ CLASS z2ui5_cl_ext DEFINITION
 ENDCLASS.
 
 
-CLASS z2ui5_cl_ext IMPLEMENTATION.
+CLASS z2ui5_cl_ccc IMPLEMENTATION.
 
   METHOD xmlns.
 

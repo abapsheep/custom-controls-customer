@@ -50,10 +50,19 @@
     },
     "object_naming": {
       "patternKind": "required",
-      // Z2UI5_CL_EXT* by default - change both patterns together with the
-      // class names when you move this repository into your own namespace
-      "clas": "^Z2UI5_CL_|^Z2UI5_CX_",
-      "intf": "^Z2UI5_IF_"
+      // Every object carries the token of this repository:
+      // Z2UI5_<type>_CCC<_object> - ccc for "custom control customers", the
+      // counterpart of smp in abap2UI5/samples and cc in the community
+      // add-on, so no two repositories claim the same token.
+      // Length is capped at 25 characters by the leading lookahead. ABAP
+      // allows 30, but build_rename (see abap2UI5) replaces the namespace
+      // z2ui5 (5 chars) with up to 9, which costs 4 - so 26 is the hard
+      // ceiling and 25 keeps one character in reserve. A parallel
+      // installation therefore never needs truncation patterns.
+      // Change all three patterns together with the object names when you
+      // move this repository into your own namespace.
+      "clas": "^(?=.{1,25}$)Z2UI5_C(L|X)_CCC",
+      "intf": "^(?=.{1,25}$)Z2UI5_IF_CCC"
     }
   }
 }
