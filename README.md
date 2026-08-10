@@ -37,7 +37,7 @@ never collide.
 abap2UI5 reserves the resourceRoot **`z2ui5_ccc`** in its `manifest.json`:
 
 ```json
-"sap.ui5": { "resourceRoots": { "z2ui5ccc": "../z2ui5ccc/", "z2ui5_ccc": "../z2ui5_ccc/" } }
+"sap.ui5": { "resourceRoots": { "z2ui5_cci": "../z2ui5_cci/", "z2ui5_ccc": "../z2ui5_ccc/" } }
 ```
 
 so the module `z2ui5_ccc/cc/Example` is served from
@@ -220,12 +220,14 @@ for the whole repository instead of two. It is reserved in the abap2UI5
 `manifest.json`, which is what makes this BSP findable without patching
 anything downstream.
 
-Note how close it is to the community root `z2ui5ccc`
-([abap2UI5-addons/custom-controls](https://github.com/abap2UI5-addons/custom-controls)):
-one underscore apart. They are distinct strings and cannot collide, but a
-typo in a view's `xmlns:` resolves against the wrong BSP and shows up only as
-a failed module request in the browser console — so when a control does not
-render, check the underscore first.
+The community controls follow the same rule, so
+[abap2UI5-addons/custom-controls](https://github.com/abap2UI5-addons/custom-controls)
+ships the BSP `Z2UI5_CCI` under the root `z2ui5_cci` for its `z2ui5_cl_cci*`
+classes. The two roots therefore differ in the last letter only: `_cci` is
+the community one, `_ccc` this one. They are distinct strings and cannot
+collide, but a typo in a view's `xmlns:` resolves against the wrong BSP and
+shows up only as a failed module request in the browser console — so when a
+control does not render, check that letter first.
 
 ## Renaming
 
@@ -260,6 +262,6 @@ system demands it, but keep the resourceRoot.
 ## Related
 
 * [abap2UI5-addons/custom-controls](https://github.com/abap2UI5-addons/custom-controls)
-  — the same mechanism under the reserved namespace `z2ui5ccc`, for controls
+  — the same mechanism under the reserved namespace `z2ui5_cci`, for controls
   shared with the community. If what you are building is generally useful,
   contribute it there instead.
