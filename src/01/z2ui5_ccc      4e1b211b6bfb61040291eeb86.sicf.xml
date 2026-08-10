@@ -2,13 +2,13 @@
 <abapGit version="v1.0.0" serializer="LCL_OBJECT_SICF" serializer_version="v1.0.0">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
-   <URL>/sap/bc/bsp/sap/z2ui5cci/</URL>
+   <URL>/sap/bc/ui5_ui5/sap/z2ui5_ccc/</URL>
    <ICFSERVICE>
-    <ICF_NAME>Z2UI5CCI</ICF_NAME>
-    <ORIG_NAME>z2ui5cci</ORIG_NAME>
+    <ICF_NAME>Z2UI5_CCC</ICF_NAME>
+    <ORIG_NAME>z2ui5_ccc</ORIG_NAME>
    </ICFSERVICE>
    <ICFDOCU>
-    <ICF_NAME>Z2UI5CCI</ICF_NAME>
+    <ICF_NAME>Z2UI5_CCC</ICF_NAME>
     <ICF_LANGU>E</ICF_LANGU>
     <ICF_DOCU>abap2UI5 customer frontend extension</ICF_DOCU>
    </ICFDOCU>

@@ -1,10 +1,10 @@
-// Generates the abapGit BSP artefacts for the Z2UI5CCI extension BSP from
+// Generates the abapGit BSP artefacts for the Z2UI5_CCC extension BSP from
 // app/webapp/.
 //
 // Same approach as abap2UI5-addons/custom-controls (tools/app2bsp.mjs) and the
 // abap2UI5-frontend repo's .github/app2bsp/run.js: every file under app/webapp
 // becomes a BSP page, plus the UI5 repository path mapping and the page
-// directory (z2ui5cci.wapa.xml) the abapGit WAPA deserializer reads.
+// directory (z2ui5_ccc.wapa.xml) the abapGit WAPA deserializer reads.
 //
 // Run: npm run app2bsp - and commit what it writes. CI regenerates and fails
 // on a diff, so a stale page can never ship old JavaScript unnoticed.
@@ -15,8 +15,8 @@ const SOURCE_DIR = "app/webapp";
 // the BSP artefacts live in their own subpackage - src/ root carries the
 // ABAP helper class, src/00 the sample app
 const TARGET_DIR = "src/01";
-const BSP = "Z2UI5CCI";
-const PREFIX = "z2ui5cci.wapa.";
+const BSP = "Z2UI5_CCC";
+const PREFIX = "z2ui5_ccc.wapa.";
 const MAPPING_PAGE = "UI5RepositoryPathMapping.xml";
 const START_PAGE = "index.html";
 const BSP_TEXT = "abap2UI5 customer frontend extension";
