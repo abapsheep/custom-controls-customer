@@ -3,6 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "description": "Template for customer-owned frontend artefacts served to abap2UI5",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abap2UI5/custom-controls-customer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abap2UI5/custom-controls-customer/issues"
+  },
+  "homepage": "https://github.com/abap2UI5/custom-controls-customer#readme",
   "type": "module",
   "scripts": {
     "app2bsp": "node tools/app2bsp.mjs"
