@@ -48,10 +48,10 @@ CLASS z2ui5_cl_ccc_sample_00 IMPLEMENTATION.
 
   METHOD view_display.
 
-    DATA(view) = z2ui5_cl_ai_xml=>factory( ).
+    DATA(view) = z2ui5_cl_ui5_view_builder=>factory( ).
 
-    DATA(root) = view->open( n  = `View`
-                             ns = `mvc`
+    DATA(root) = view->ele( n  = `View`
+                            ns = `mvc`
         )->a( n = `xmlns`
               v = `sap.m`
         )->a( n = `xmlns:mvc`
@@ -64,11 +64,11 @@ CLASS z2ui5_cl_ccc_sample_00 IMPLEMENTATION.
     " declares xmlns:z2ui5_ccc="z2ui5_ccc.cc" - once per view, on the root
     z2ui5_cl_ccc=>xmlns( root ).
 
-    DATA(page) = root->open( `Page`
+    DATA(page) = root->ele( `Page`
         )->a( n = `title`
               v = `abap2UI5 customer frontend extension` ).
 
-    page->open( `MessageStrip`
+    page->ele( `MessageStrip`
         )->a( n = `text`
               v = `Everything below is served by the Z2UI5_CCC BSP of this ` &&
                   `repository, not by abap2UI5 or its frontend BSP.`
@@ -78,18 +78,18 @@ CLASS z2ui5_cl_ccc_sample_00 IMPLEMENTATION.
               v = `true`
         )->a( n = `class`
               v = `sapUiSmallMargin`
-    )->shut( ).
+    )->end( ).
 
     " The bootstrap element: registers the resource roots, libraries, icon
     " fonts and stylesheets declared in app/webapp/cc/Extension.js. Add it
     " before the controls that depend on any of them.
     z2ui5_cl_ccc=>render( page ).
 
-    DATA(box) = page->open( `VBox`
+    DATA(box) = page->ele( `VBox`
         )->a( n = `class`
               v = `sapUiMediumMargin` ).
 
-    box->leaf( `Label`
+    box->tag( `Label`
         )->a( n = `text`
               v = `Badge text`
         )->a( n = `labelFor`
@@ -100,7 +100,7 @@ CLASS z2ui5_cl_ccc_sample_00 IMPLEMENTATION.
     " roundtrip. That the badge follows along is itself part of the check -
     " it proves the control is a real UI5 control with working data binding,
     " not a static snippet.
-    box->leaf( `Input`
+    box->tag( `Input`
         )->a( n = `id`
               v = `TEXT`
         )->a( n = `value`

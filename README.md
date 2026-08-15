@@ -142,20 +142,20 @@ JavaScript unnoticed.
 ### 4. Use it from ABAP
 
 ```abap
-DATA(view) = z2ui5_cl_ai_xml=>factory( ).
+DATA(view) = z2ui5_cl_ui5_view_builder=>factory( ).
 
-DATA(root) = view->open( n  = `View`
-                         ns = `mvc`
+DATA(root) = view->ele( n  = `View`
+                        ns = `mvc`
     )->a( n = `xmlns`     v = `sap.m`
     )->a( n = `xmlns:mvc` v = `sap.ui.core.mvc` ).
 
 z2ui5_cl_ccc=>xmlns( root ).             " declares xmlns:z2ui5_ccc - once per view
 
-DATA(page) = root->open( `Page` )->a( n = `title` v = `Warehouse` ).
+DATA(page) = root->ele( `Page` )->a( n = `title` v = `Warehouse` ).
 
 z2ui5_cl_ccc=>render( page ).            " loads and installs the extension
 
-page->leaf( `Button`
+page->tag( `Button`
     )->a( n = `icon` v = `sap-icon://my-icons/Regal`   " your own icon font
     )->a( n = `text` v = `Rack` ).
 
