@@ -26,13 +26,17 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! UI5 module namespace the prefix resolves to
     CONSTANTS c_ns_uri TYPE string VALUE `z2ui5_ccc.cc`.
 
+    "! attribute list - one `key=value` string per attribute, e.g.
+    "! a = VALUE #( ( `text=Hello` ) ( `width=100%` ) ). Split on the first `=`.
+    TYPES ty_t_attr TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+
     "! Declare the extension's XML namespace on a view or fragment root.
     "!
     "! Call it once, on the root element, before adding any element of this
     "! extension:
     "!
-    "!   DATA(view) = z2ui5_cl_ai_xml=>factory( ).
-    "!   DATA(root) = view->open( n = `View` ns = `mvc`
+    "!   DATA(view) = z2ui5_cl_ui5_view_builder=>factory( ).
+    "!   DATA(root) = view->ele( n = `View` ns = `mvc`
     "!       )->a( n = `xmlns`     v = `sap.m`
     "!       )->a( n = `xmlns:mvc` v = `sap.ui.core.mvc` ).
     "!   z2ui5_cl_ccc=>xmlns( root ).
@@ -41,9 +45,9 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! @parameter result | the unchanged view builder, for chaining
     CLASS-METHODS xmlns
       IMPORTING
-        view          TYPE REF TO z2ui5_cl_ai_xml
+        view          TYPE REF TO z2ui5_cl_ui5_view_builder
       RETURNING
-        VALUE(result) TYPE REF TO z2ui5_cl_ai_xml.
+        VALUE(result) TYPE REF TO z2ui5_cl_ui5_view_builder.
 
     "! Render the bootstrap element of this extension.
     "!
@@ -57,9 +61,9 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! @parameter result | the unchanged view builder, for chaining
     CLASS-METHODS render
       IMPORTING
-        view          TYPE REF TO z2ui5_cl_ai_xml
+        view          TYPE REF TO z2ui5_cl_ui5_view_builder
       RETURNING
-        VALUE(result) TYPE REF TO z2ui5_cl_ai_xml.
+        VALUE(result) TYPE REF TO z2ui5_cl_ui5_view_builder.
 
     "! Render the Example control - the template control this repository
     "! ships. Replace it with builders for your own controls.
@@ -71,12 +75,12 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! @parameter result | the unchanged view builder, for chaining
     CLASS-METHODS example
       IMPORTING
-        view          TYPE REF TO z2ui5_cl_ai_xml
+        view          TYPE REF TO z2ui5_cl_ui5_view_builder
         text          TYPE string OPTIONAL
         color         TYPE string OPTIONAL
         press         TYPE string OPTIONAL
       RETURNING
-        VALUE(result) TYPE REF TO z2ui5_cl_ai_xml.
+        VALUE(result) TYPE REF TO z2ui5_cl_ui5_view_builder.
 
     "! Emit one element of this extension, skipping the attributes the caller
     "! left empty.
@@ -86,20 +90,20 @@ CLASS z2ui5_cl_ccc DEFINITION
     "! builders collect their parameters as `key=value` strings and let this
     "! method drop the ones whose value is initial.
     "!
-    "! Mirrors z2ui5_cl_ai_xml=>leaf: the element is added as a child and the
-    "! cursor stays on the current node, so the caller can keep chaining.
+    "! Mirrors z2ui5_cl_ui5_view_builder=>tag: the element is added as a child
+    "! and the cursor stays on the current node, so the caller can keep chaining.
     "!
     "! @parameter view   | the builder positioned at the parent element
     "! @parameter name   | element name, without the namespace prefix
     "! @parameter a      | attributes as `key=value`; empty values are dropped
     "! @parameter result | the unchanged view builder, for chaining
-    CLASS-METHODS leaf
+    CLASS-METHODS tag
       IMPORTING
-        view          TYPE REF TO z2ui5_cl_ai_xml
+        view          TYPE REF TO z2ui5_cl_ui5_view_builder
         name          TYPE string
-        a             TYPE z2ui5_cl_ai_xml=>ty_t_attr OPTIONAL
+        a             TYPE ty_t_attr OPTIONAL
       RETURNING
-        VALUE(result) TYPE REF TO z2ui5_cl_ai_xml.
+        VALUE(result) TYPE REF TO z2ui5_cl_ui5_view_builder.
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -117,42 +121,44 @@ CLASS z2ui5_cl_ccc IMPLEMENTATION.
 
   METHOD render.
 
-    result = leaf( view = view
-                   name = `Extension` ).
+    result = tag( view = view
+                  name = `Extension` ).
 
   ENDMETHOD.
 
   METHOD example.
 
-    result = leaf( view = view
-                   name = `Example`
-                   a    = VALUE #( ( |text={ text }| )
-                                   ( |color={ color }| )
-                                   ( |press={ press }| ) ) ).
+    result = tag( view = view
+                  name = `Example`
+                  a    = VALUE #( ( |text={ text }| )
+                                  ( |color={ color }| )
+                                  ( |press={ press }| ) ) ).
 
   ENDMETHOD.
 
-  METHOD leaf.
+  METHOD tag.
 
-    DATA lt_attr TYPE z2ui5_cl_ai_xml=>ty_t_attr.
+    result = view->tag( n  = name
+                        ns = c_ns ).
 
     LOOP AT a INTO DATA(lv_attr).
 
       DATA(lv_off) = find( val = lv_attr
                            sub = `=` ).
-      " no `=` at all is a malformed attribute, `key=` an unset one - both
-      " would end up as an empty attribute value in the rendered XML
-      IF lv_off < 0 OR strlen( lv_attr ) <= lv_off + 1.
+      " no `=` at all is a malformed attribute, `=value` a nameless one and
+      " `key=` an unset one - all three would end up as an empty attribute
+      " name or value in the rendered XML
+      IF lv_off < 1 OR strlen( lv_attr ) <= lv_off + 1.
         CONTINUE.
       ENDIF.
 
-      APPEND lv_attr TO lt_attr.
+      " a( ) lands on the element the chain points at - the tag just added
+      result->a( n = substring( val = lv_attr
+                                len = lv_off )
+                 v = substring( val = lv_attr
+                                off = lv_off + 1 ) ).
 
     ENDLOOP.
-
-    result = view->leaf( n  = name
-                         ns = c_ns
-                         a  = lt_attr ).
 
   ENDMETHOD.
 
