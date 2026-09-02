@@ -48,6 +48,17 @@
     <item>
      <ATTRIBUTES>
       <APPLNAME>Z2UI5_CCC</APPLNAME>
+      <PAGEKEY>FONTS/MYCUSTOMFONTFAMILY.JS</PAGEKEY>
+      <PAGENAME>fonts/MyCustomFontFamily.js</PAGENAME>
+      <PAGETYPE>X</PAGETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+     </ATTRIBUTES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>INDEX.HTML</PAGEKEY>
       <PAGENAME>index.html</PAGENAME>
       <MIMETYPE>text/html</MIMETYPE>

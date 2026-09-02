@@ -88,6 +88,35 @@ function collect(dir, base = dir) {
   return files;
 }
 
+// A source line longer than LINE_WIDTH is not an error the SAP side reports -
+// toBspPageFormat below wraps it into 255-character chunks, and the system
+// serves those chunks back as SEPARATE LINES. A wrapped statement usually
+// still parses; a wrapped string literal is a syntax error that exists only on
+// the customer's system, in a file that looked fine in git and in CI.
+//
+// That is what rules out the base64 data: URI this repository's README used to
+// recommend for an icon font: a font is tens of thousands of base64 characters
+// and CSS has no line continuation, so it can only ever be one line. In
+// JavaScript it can be an array of short chunks joined back together, which is
+// what tools/font2js.mjs generates - and this check is what keeps that honest.
+function assertLineLength(rel, content) {
+  const long = content
+    .split(/\r\n|\r|\n/)
+    .map((line, i) => [i + 1, line.length])
+    .filter(([, len]) => len > LINE_WIDTH);
+  if (long.length) {
+    throw new Error(
+      `${rel}: ${long.length} line(s) longer than ${LINE_WIDTH} characters - ` +
+        `a BSP page wraps them and the browser gets a different file: ` +
+        long
+          .slice(0, 5)
+          .map(([i, len]) => `line ${i} (${len})`)
+          .join(", ") +
+        (long.length > 5 ? ", ..." : ""),
+    );
+  }
+}
+
 function toBspPageFormat(content) {
   const lines = content.split(/\r\n|\r|\n/);
   if (lines.length > 1 && lines[lines.length - 1] === "") lines.pop();
@@ -256,18 +285,23 @@ if (files.length === 0) {
 }
 
 // fail here, not on the customer's import
+const contents = new Map();
 try {
-  files.forEach(assertPageName);
+  for (const rel of files) {
+    assertPageName(rel);
+    const content = readFileSync(join(SOURCE_DIR, rel), "utf8");
+    assertLineLength(rel, content);
+    contents.set(rel, content);
+  }
 } catch (e) {
   console.error(e.message);
   process.exit(1);
 }
 
 for (const rel of files) {
-  const content = readFileSync(join(SOURCE_DIR, rel), "utf8");
   writeFileSync(
     join(TARGET_DIR, targetFileName(rel)),
-    toBspPageFormat(content),
+    toBspPageFormat(contents.get(rel)),
     "utf8",
   );
   console.log(`${rel} -> ${TARGET_DIR}/${targetFileName(rel)}`);

@@ -8,3 +8,9 @@
 *.mjs text eol=lf
 *.css text eol=lf
 *.html text eol=lf
+
+# the icon font sources under fonts/ - the woff2 is what gets embedded, the
+# IcoMoon svg font is where the glyph NAMES come from (a ttf/woff/woff2 drops
+# them). Neither is ever a BSP page; app2bsp only reads app/webapp.
+fonts/*.woff2 binary
+fonts/*.svg -text
