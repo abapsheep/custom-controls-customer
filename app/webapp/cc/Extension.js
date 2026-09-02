@@ -63,14 +63,21 @@ sap.ui.define(
     // and, unless you pass `metadata` yourself, the <fontFamily>.json that
     // maps icon names to code points.
     //
-    // `metadata` is the way out when you cannot serve that JSON as a file:
-    // give the mapping inline and the IconPool never fetches it. The name ->
-    // code point pairs are exactly what the SAP reuse-library recipe puts
-    // into its library.js as IconPool.addIcon() calls.
+    // `metadata` is the way out when you cannot serve that JSON as a file -
+    // but it does NOT on its own stop UI5 from fetching it. _loadFontMetadata
+    // defaults metadataURI to fontURI + fontFamily + ".json" whenever it is
+    // undefined, and reads the inline map only on the branch it takes when
+    // metadataURI is FALSY. So an inline `metadata` needs `metadataURI: ""`
+    // beside it, or the collection ends up EMPTY - names render, every glyph
+    // is blank, and the one trace is "An error occurred loading the font
+    // metadata for collection". The generated module below carries both.
+    //
+    // The name -> code point pairs are exactly what the SAP reuse-library
+    // recipe puts into its library.js as IconPool.addIcon() calls.
     //
     // fonts/MyCustomFontFamily.js is GENERATED from fonts/MyCustomFontFamily.*
     // by 'npm run font2js' and already has that shape - fontFamily,
-    // collectionName, fontURI and metadata - so it drops straight in. Its
+    // collectionName, fontURI, metadata and metadataURI - so it drops in. Its
     // fontURI is the font itself, base64 in a data: URI, because a .woff2
     // cannot be committed under app/webapp: a BSP page is text. The header of
     // that file explains how the URL UI5 builds from it still ends in
@@ -78,7 +85,8 @@ sap.ui.define(
     //
     // Serving the font from somewhere else instead - a MIME object, a
     // reuse-library BSP - is one entry, not a rewrite: replace this with
-    // { fontFamily, collectionName, fontURI: Util.url("fonts"), metadata }.
+    // { fontFamily, collectionName, fontURI: Util.url("fonts"), metadata,
+    // metadataURI: "" }.
     // Shipping no icon font at all means emptying the array AND taking the
     // module out of the sap.ui.define list above - a dependency on a file the
     // BSP no longer carries fails the whole extension, not just the font.

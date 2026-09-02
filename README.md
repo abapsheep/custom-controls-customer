@@ -237,7 +237,18 @@ JavaScript *does* have line continuation — an array of short strings and a
   resolving to the one payload) and the `FontFace` object 1.120+ and UI5 2.x
   add to `document.fonts` (woff2 only).
 
-  Two things follow from that last sentence. The payload **must be WOFF2** —
+  The name → code point map rides along inline, as `metadata` — and that entry
+  needs **`metadataURI: ""`** beside it. `metadata` alone does not suppress the
+  fetch: `_loadFontMetadata` defaults `metadataURI` to
+  `fontURI + fontFamily + ".json"` whenever it is `undefined`, and reads the
+  inline map only on the branch it takes when `metadataURI` is falsy. Left out,
+  UI5 requests that `.json` against the data URI, the request dies on
+  abap2UI5's CSP (`connect-src` is explicit and carries no `data:`), and the
+  collection ends up **empty** — the names render, every glyph is blank, and
+  the only trace is *"An error occurred loading the font metadata for
+  collection"* in the console. Same on 1.71 and on 1.120+/2.x.
+
+  Two things follow from the paragraph before. The payload **must be WOFF2** —
   it is the only format modern UI5 asks for, and the `format()` hint is matched
   against the actual bytes, so a `.ttf` renamed to `.woff2` loads nowhere;
   `font2js` checks the magic number rather than trusting the extension. And a
