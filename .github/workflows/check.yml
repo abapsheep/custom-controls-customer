@@ -39,6 +39,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      # the icon font module and the ABAP icon interface are generated from
+      # fonts/ - regenerate first, so a font swapped in without running the
+      # generator fails here and not on a system where the icons are blank
+      - name: font2js is up to date
+        run: |
+          npm run font2js
+          git diff --exit-code -- app/webapp/fonts src/z2ui5_if_ccc_icon.intf.abap
       # the generated BSP artefacts must match app/webapp - a stale page would
       # deploy old JavaScript without anyone noticing
       - name: app2bsp is up to date

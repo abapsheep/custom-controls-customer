@@ -14,6 +14,7 @@
   "homepage": "https://github.com/abap2UI5/custom-controls-customer#readme",
   "type": "module",
   "scripts": {
+    "font2js": "node tools/font2js.mjs",
     "app2bsp": "node tools/app2bsp.mjs"
   }
 }
