@@ -16,12 +16,13 @@
  */
 
 
-@font-face {
-    font-family: 'MyCustomFontFamily';
-    src: url('com.myorg.reuselib/fonts/MyCustomFontFamily.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+/* MyCustomFontFamily has no @font-face here on purpose. Every URL in this file
+ * resolves against THIS BSP (/sap/bc/ui5_ui5/sap/z2ui5_ccc/css/), so a font
+ * that lives in the reuse library can only be reached by repeating that other
+ * BSP's URL - a second place to keep in sync, and the one that pointed at a
+ * directory which does not exist. cc/Extension.js inserts the rule instead,
+ * from the `fontURI` of its ICON_FONTS entry, so the class below and
+ * sap-icon://my-icons/... read the very same file. */
 .myCustomIconClass {
     font-family: 'MyCustomFontFamily';
 }

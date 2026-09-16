@@ -119,7 +119,7 @@ const LIBRARIES = ["com.myorg.reuselib"];
 const ICON_FONTS = [{
   fontFamily: "MyCustomFontFamily",
   collectionName: "my-icons",
-  fontURI: Util.url("fonts"),
+  fontURI: "com/myorg/reuselib/themes/base/fonts",
   metadata: { Regal: "e910", Stapler: "e917" },
 }];
 
@@ -128,6 +128,21 @@ const STYLESHEETS = [Util.url("css/style.css")];
 
 Those four blocks are the replacement for the four framework patches in the
 table above, one for one.
+
+`fontURI` is the **directory** that holds `MyCustomFontFamily.woff2`, written
+as a UI5 module path: it is resolved with `sap.ui.require.toUrl()` after the
+resource roots are registered, so the example above lands on
+`/sap/bc/ui5_ui5/sap/zreuseicons/themes/base/fonts/` — the reuse-library layout
+`<namespace>/themes/base/fonts/` that SAP's own fonts, `sap.tnt`'s
+`SAP-icons-TNT` among them, follow. A value starting with `/` or with a
+protocol is passed through unchanged. It must not name a directory of *this*
+BSP: `app2bsp` writes BSP pages and those are text, so the font file itself
+can never be served from here — see [Binary artefacts](#binary-artefacts).
+
+Without `metadata`, the `IconPool` additionally fetches `<fontURI>/<fontFamily>.json`
+for the name → code point mapping; with it, nothing is fetched. A 404 on that
+`.json` in the network tab is the usual sign that `fontURI` points at a
+directory that does not exist.
 
 ### 3. Regenerate and commit
 

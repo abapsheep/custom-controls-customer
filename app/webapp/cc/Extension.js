@@ -54,9 +54,22 @@ sap.ui.define(
     // 3. Icon fonts
     // ------------------------------------------------------------------
     // Makes an icon font usable as sap-icon://<collectionName>/<iconName> in
-    // any UI5 icon property. `fontURI` is the DIRECTORY holding the font file
-    // and, unless you pass `metadata` yourself, the <fontFamily>.json that
-    // maps icon names to code points.
+    // any UI5 icon property, and declares the @font-face the browser needs to
+    // paint the glyphs.
+    //
+    // `fontURI` is the DIRECTORY holding <fontFamily>.woff2 and, unless you
+    // pass `metadata` yourself, the <fontFamily>.json that maps icon names to
+    // code points. Write it as a UI5 MODULE PATH: install() resolves it with
+    // sap.ui.require.toUrl() AFTER registering the resource roots above, so a
+    // font living in another BSP is addressed through its namespace and that
+    // BSP's URL stays in RESOURCE_ROOTS alone. A value that already starts
+    // with a protocol or with "/" is passed through unchanged.
+    //
+    // The layout is the reuse-library one SAP's own fonts follow,
+    // <namespace>/themes/base/fonts/ - the same place sap.tnt keeps
+    // SAP-icons-TNT. Do NOT point this at a directory of THIS BSP: app2bsp
+    // writes BSP pages, and those are TEXT, so a .woff2 cannot be served from
+    // here at all (see README, "Binary artefacts").
     //
     // `metadata` is the way out when you cannot serve that JSON as a file:
     // give the mapping inline and the IconPool never fetches it. The name ->
@@ -66,7 +79,7 @@ sap.ui.define(
        {
          fontFamily: "MyCustomFontFamily",
          collectionName: "my-icons",
-         fontURI: Util.url("fonts"),
+         fontURI: "com/myorg/reuselib/themes/base/fonts",
          metadata: { bestandsInfoHU: "e900", bestandsInfoLager: "e901" }
        }
     ];
@@ -100,16 +113,39 @@ sap.ui.define(
       return Promise.reject(new Error("no UI5 library loader available"));
     }
 
+    // A fontURI is a module path unless it is already a URL or an absolute
+    // path. Resolving it HERE and not where ICON_FONTS is written is the whole
+    // point: sap.ui.require.toUrl() maps a namespace only once
+    // sap.ui.loader.config() has registered it, which install() does first.
+    function resolveFontURI(uri) {
+      return /^([a-z][a-z0-9+.-]*:)?\/\//i.test(uri) || uri.startsWith("/")
+        ? uri
+        : sap.ui.require.toUrl(uri);
+    }
+
     function registerFont(font) {
       // registerFont throws on a collection the IconPool already knows, and
       // the registration is global - so this must not run twice. `installed`
       // guards it; the try/catch keeps a mistyped entry from stopping the
       // ones after it.
       try {
+        const fontURI = resolveFontURI(font.fontURI);
         IconPool.registerFont({
           lazy: !font.metadata,
           ...font,
+          fontURI,
         });
+        // The IconPool writes the @font-face itself, but not before an
+        // sap-icon:// of this collection is first rendered. Doing it here means
+        // a plain <span> styled with the font family works too, and both
+        // spellings read the file from the SAME directory - no second URL in
+        // css/style.css to keep in sync. The trailing slash is required: UI5
+        // concatenates fontURI + fontFamily + ".woff2".
+        IconPool.insertFontFaceStyle(
+          font.fontFamily,
+          `${fontURI.replace(/\/$/, "")}/`,
+          font.collectionName,
+        );
       } catch (e) {
         Util.logError(
           `Extension: could not register icon font '${font.collectionName}'`,
