@@ -6,15 +6,90 @@
  * app/webapp. A base64 data: URI can - it is text - which makes this file the                                                                                                                                                                                 
  * simplest place to ship an icon font that abapGit can carry:                                                                                                                                                                                                 
  *                                                                                                                                                                                                                                                             
- *   @font-face {                                                                                                                                                                                                                                              
- *     font-family: "MyCustomFontFamily";                                                                                                                                                                                                                      
- *     src: url("data:font/woff2;base64,d09GMgABAAAAA...") format("woff2");                                                                                                                                                                                    
- *   }                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                    
  *                                                                                                                                                                                                                                                             
  * See the README section "Binary artefacts" for the alternative (MIME                                                                                                                                                                                         
  * objects), which is the better choice for anything large.                                                                                                                                                                                                    
  */                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                               
+       
+     @font-face {                                                                                                                                                                                                                                              
+      font-family: "MyCustomFontFamily";                                                                                                                                                                                                                      
+      src: url("css/MyCustomFontFamily.woff2") format("woff2");                                                                                                                                                                                    
+    }     
+
+
+.icon-bestandsInfoHU:before {
+    content: "\e900";
+  }
+  .icon-bestandsInfoLager:before {
+    content: "\e901";
+  }
+  .icon-bestandsInfoMat:before {
+    content: "\e902";
+  }
+  .icon-bestandsInfoMat1:before {
+    content: "\e903";
+  }
+  .icon-bewegungAbgeschlossen:before {
+    content: "\e904";
+  }
+  .icon-bewegungAbgeschlossen1:before {
+    content: "\e905";
+  }
+  .icon-fordertechnikaufladen:before {
+    content: "\e906";
+  }
+  .icon-fordertechnikentnehmen:before {
+    content: "\e907";
+  }
+  .icon-kommisionierHUbeladen:before {
+    content: "\e908";
+  }
+  .icon-KommisionierHUentnehmen:before {
+    content: "\e909";
+  }
+  .icon-Lageraufgabequitiert:before {
+    content: "\e90a";
+  }
+  .icon-Lageraufgabequitiert1:before {
+    content: "\e90b";
+  }
+  .icon-Lagerauslagern:before {
+    content: "\e90c";
+  }
+  .icon-Lagereinlagern:before {
+    content: "\e90d";
+  }
+  .icon-LKWausladen:before {
+    content: "\e90e";
+  }
+  .icon-LKWbeladen:before {
+    content: "\e90f";
+  }
+  .icon-Staplereinlagern:before {
+    content: "\e910";
+  }
+  .icon-Staplerentnehmen:before {
+    content: "\e911";
+  }
+  .icon-StaplerLogin:before {
+    content: "\e912";
+  }
+  .icon-StaplerLogout:before {
+    content: "\e913";
+  }
+  .icon-StaplerLogout1:before {
+    content: "\e914";
+  }
+  .icon-umpacken:before {
+    content: "\e915";
+  }
+  .icon-umpacken1:before {
+    content: "\e916";
+  }
+
+
+
 .z2ui5_cccExample {                                                                                                                                                                                                                                            
   display: inline-block;                                                                                                                                                                                                                                       
   padding: 0.25rem 0.75rem;                                                                                                                                                                                                                                    
