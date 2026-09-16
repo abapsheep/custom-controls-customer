@@ -36,7 +36,7 @@ sap.ui.define(
     // Artefacts that live in THIS BSP need no entry: abap2UI5 registers
     // z2ui5_ccc itself.
     const RESOURCE_ROOTS = {
-       "com.myorg.reuselib": "/sap/bc/ui5_ui5/sap/zreuseicons/",
+       "com.myorg.reuselib": "/sap/bc/ui5_ui5/sap/zreuseicons/"
     };
 
     // ------------------------------------------------------------------
@@ -47,7 +47,7 @@ sap.ui.define(
     // register an icon font. Replaces the "libs" entry in the framework's
     // manifest.json.
     const LIBRARIES = [
-       "com.myorg.reuselib",
+       "com.myorg.reuselib"
     ];
 
     // ------------------------------------------------------------------
@@ -67,8 +67,8 @@ sap.ui.define(
          fontFamily: "MyCustomFontFamily",
          collectionName: "my-icons",
          fontURI: Util.url("fonts"),
-         metadata: { bestandsInfoHU: "e900", bestandsInfoLager: "e901" },
-       },
+         metadata: { bestandsInfoHU: "e900", bestandsInfoLager: "e901" }
+       }
     ];
 
     // ------------------------------------------------------------------
