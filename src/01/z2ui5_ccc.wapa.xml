@@ -37,6 +37,50 @@
     <item>
      <ATTRIBUTES>
       <APPLNAME>Z2UI5_CCC</APPLNAME>
+      <PAGEKEY>CSS/ICOMOON.EOT</PAGEKEY>
+      <PAGENAME>css/icomoon.eot</PAGENAME>
+      <PAGETYPE>X</PAGETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+     </ATTRIBUTES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
+      <PAGEKEY>CSS/ICOMOON.SVG</PAGEKEY>
+      <PAGENAME>css/icomoon.svg</PAGENAME>
+      <PAGETYPE>X</PAGETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+     </ATTRIBUTES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
+      <PAGEKEY>CSS/ICOMOON.TTF</PAGEKEY>
+      <PAGENAME>css/icomoon.ttf</PAGENAME>
+      <PAGETYPE>X</PAGETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+     </ATTRIBUTES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
+      <PAGEKEY>CSS/ICOMOON.WOFF</PAGEKEY>
+      <PAGENAME>css/icomoon.woff</PAGENAME>
+      <PAGETYPE>X</PAGETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+     </ATTRIBUTES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>Z2UI5_CCC</APPLNAME>
       <PAGEKEY>CSS/STYLE.CSS</PAGEKEY>
       <PAGENAME>css/style.css</PAGENAME>
       <PAGETYPE>X</PAGETYPE>
